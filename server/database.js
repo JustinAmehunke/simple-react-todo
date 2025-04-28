@@ -87,7 +87,10 @@ export function initializeDatabase() {
 
     const insertMany = newDb.transaction((todos) => {
       for (const todo of todos) {
-        insert.run(todo);
+        insert.run({
+          ...todo,
+          completed: todo.completed ? 1 : 0 // <-- Convert boolean to number
+        });
       }
     });
 
